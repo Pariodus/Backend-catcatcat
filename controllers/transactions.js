@@ -82,12 +82,12 @@ exports.addTransaction = async (req, res, next) => {
         // Check for existed transaction
         const existedTransactions = await Transaction.find({user: req.user.id});
 
-        // If the user is not an admin, they can only create 3 transactions
-        if (existedTransactions.length >= 3 && req.user.role !== 'admin') {
-            return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 transactions`});
+        // If the user is not an admin, they can only create 3 reservations
+        if (existedreservations.length >= 3 && req.user.role !== 'admin') {
+            return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 reservations`});
         }
 
-        // Check validation of transaction's time
+        // Check validation of reservation's time
         let reserveStartTime = new Date(req.body.reserveStartTime);
         let reserveEndTime = new Date(req.body.reserveEndTime);
         let reserveStartDate = reserveStartTime.toISOString().slice(0, 10);
@@ -97,22 +97,22 @@ exports.addTransaction = async (req, res, next) => {
 
             // Check if it's the same date
             if (reserveStartDate !== reserveEndDate) {
-                return res.status(405).json({success: false, message: 'The transaction start time and end time must be in the same date.'});
+                return res.status(405).json({success: false, message: 'The reservation start time and end time must be in the same date.'});
             }
         
             // Check if end time occurs after start time
             if (reserveEndTime.getTime() <= reserveStartTime.getTime()) {
-                return res.status(405).json({success: false, message: 'The transaction end time must occurs after start time.'});
+                return res.status(405).json({success: false, message: 'The reservation end time must occurs after start time.'});
             }
 
-            // Check if transaction time in co-working space's openning hours
+            // Check if reservation time in co-working space's openning hours
             if (reserveStartTime.getTime() < coworkingOpenTime.getTime() || reserveEndTime.getTime() > coworkingCloseTime.getTime()) {
-                return res.status(405).json({success: false, message: `The transaction time must be in co-working space's openning hours`});
+                return res.status(405).json({success: false, message: `The reservation time must be in co-working space's openning hours`});
             }
 
-            // Check if transaction is not more than 2 hours
+            // Check if reservation is not more than 2 hours
             if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
-                return res.status(405).json({success: false, message: `The transaction must not more than 2 hours`});
+                return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
             }
 
         const transaction = await Transaction.create(req.body);
@@ -140,7 +140,7 @@ exports.updateTransaction = async (req, res, next) => {
             return res.status(401).json({success: false, message: `User ${req.user.id} is not authorized to update this transaction`});
         }
 
-        // Check validation of transaction's time
+        // Check validation of reservation's time
         const coworkingspace = await CoworkingSpace.findById(transaction.coworkingspace);
 
         let reserveStartTime = new Date(req.body.reserveStartTime || transaction.reserveStartTime);
@@ -152,22 +152,22 @@ exports.updateTransaction = async (req, res, next) => {
 
             // Check if it's the same date
             if (reserveStartDate !== reserveEndDate) {
-                return res.status(405).json({success: false, message: 'The transaction start time and end time must be in the same date.'});
+                return res.status(405).json({success: false, message: 'The reservation start time and end time must be in the same date.'});
             }
         
             // Check if end time occurs after start time
             if (reserveEndTime.getTime() <= reserveStartTime.getTime()) {
-                return res.status(405).json({success: false, message: 'The transaction end time must occurs after start time.'});
+                return res.status(405).json({success: false, message: 'The reservation end time must occurs after start time.'});
             }
 
-            // Check if transaction time in co-working space's openning hours
+            // Check if reservation time in co-working space's openning hours
             if (reserveStartTime.getTime() < coworkingOpenTime.getTime() || reserveEndTime.getTime() > coworkingCloseTime.getTime()) {
-                return res.status(405).json({success: false, message: `The transaction time must be in co-working space's openning hours`});
+                return res.status(405).json({success: false, message: `The reservation time must be in co-working space's openning hours`});
             }
 
-            // Check if transaction is not more than 2 hours
+            // Check if reservation is not more than 2 hours
             if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
-                return res.status(405).json({success: false, message: `The transaction must not more than 2 hours`});
+                return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
             }
 
         transaction = await Transaction.findByIdAndUpdate(req.params.id, req.body, {
@@ -178,7 +178,7 @@ exports.updateTransaction = async (req, res, next) => {
         res.status(200).json({success: true, data: transaction});
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({success: false, message: 'Cannot update Transaction'});
+        return res.status(500).json({success: false, message: 'Cannot update Reservation'});
     }
 };
 

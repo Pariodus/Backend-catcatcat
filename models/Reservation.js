@@ -19,6 +19,11 @@ const ReservationSchema = new mongoose.Schema({
         ref: 'coworkingspace',
         required: true
     },
+    transaction: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'transaction',
+        required: true
+    },
     totalcost: {
         type: String,
         required: true
