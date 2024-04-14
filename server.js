@@ -16,6 +16,7 @@ const coworkingspaces = require('./routes/coworkingspaces');
 const auth = require('./routes/auth');
 const reservations = require('./routes/reservations');
 const users = require('./routes/users');
+const transactions = require('./routes/transactions');
 
 // Load env vars
 dotenv.config({path: './config/config.env'});
@@ -53,6 +54,7 @@ app.use('/api/coworkingspaces', coworkingspaces);
 app.use('/api/auth', auth);
 app.use('/api/reservations', reservations);
 app.use('/api/users', users);
+app.use('/api/transactions', transactions);
 
 //Cookie parser
 app.use(cookieParser());

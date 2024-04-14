@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ReservationSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
     reserveStartTime: {
         type: Date,
         required: true
@@ -23,10 +23,19 @@ const ReservationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    slip: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: 'pending'
+    },
     createAt: {
         type: Date,
         default: Date.now
     }
 });
 
-module.exports = mongoose.model('Reservation', ReservationSchema);
+module.exports = mongoose.model('Transaction', TransactionSchema);
