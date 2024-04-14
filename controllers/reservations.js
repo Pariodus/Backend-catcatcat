@@ -111,9 +111,9 @@ exports.addReservation = async (req, res, next) => {
             }
 
             // Check if reservation is not more than 2 hours
-            if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
-                return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
-            }
+            // if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
+            //     return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
+            // }
 
         const reservation = await Reservation.create(req.body);
 
@@ -166,9 +166,9 @@ exports.updateReservation = async (req, res, next) => {
             }
 
             // Check if reservation is not more than 2 hours
-            if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
-                return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
-            }
+            // if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
+            //     return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
+            // }
 
         reservation = await Reservation.findByIdAndUpdate(req.params.id, req.body, {
             new: true,

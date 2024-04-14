@@ -19,14 +19,14 @@ const ReservationSchema = new mongoose.Schema({
         ref: 'coworkingspace',
         required: true
     },
-    transaction: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'transaction',
-        required: true
-    },
     totalcost: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'success', 'failed'],
+        default: 'pending'
     },
     createAt: {
         type: Date,

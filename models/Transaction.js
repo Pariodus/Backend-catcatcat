@@ -1,22 +1,14 @@
 const mongoose = require('mongoose');
 
 const TransactionSchema = new mongoose.Schema({
-    reserveStartTime: {
-        type: Date,
-        required: true
-    },
-    reserveEndTime: {
-        type: Date,
+    reservation: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'reservation',
         required: true
     },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'user',
-        required: true
-    },
-    coworkingspace: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'coworkingspace',
         required: true
     },
     totalcost: {
@@ -26,11 +18,6 @@ const TransactionSchema = new mongoose.Schema({
     slip: {
         type: String,
         required: true
-    },
-    status: {
-        type: String,
-        required: true,
-        default: 'pending'
     },
     createAt: {
         type: Date,
