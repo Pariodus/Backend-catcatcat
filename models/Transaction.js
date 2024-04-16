@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const TransactionSchema = new mongoose.Schema({
     reservation: {
         type: mongoose.Schema.ObjectId,
-        ref: 'reservation',
+        ref: 'Reservation',
         required: true
     },
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
     totalcost: {

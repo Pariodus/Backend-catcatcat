@@ -8,6 +8,7 @@ const {xss} = require('express-xss-sanitizer');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 //const swaggerJsDoc = require('swagger-jsdoc');
 //const swaggerUi = require('swagger-ui-express');
@@ -25,8 +26,15 @@ connectDB();
 
 const app = express();
 
+app.use(bodyParser.urlencoded({
+    parameterLimit: 100000,
+    limit: '50mb',
+    extended: true
+  }));
+app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
+
 //Body parser
-app.use(express.json());
+// app.use(express.json());
 
 //sanitize data
 app.use(mongoSanitize());
