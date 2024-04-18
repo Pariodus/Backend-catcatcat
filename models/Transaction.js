@@ -15,6 +15,11 @@ const TransactionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bank: {
+        type: String,
+        required: true,
+        enum: ['Kbank', 'SCB', 'PromptPay']
+    },
     slip: {
         type: String,
         required: true
