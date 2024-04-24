@@ -20,6 +20,9 @@ const PremiumTransactionSchema = new mongoose.Schema({
         required: true,
         enum: ['Kbank', 'SCB', 'PromptPay']
     },
+    studentcard: {
+        type: String,
+    },
     slip: {
         type: String,
         required: true
