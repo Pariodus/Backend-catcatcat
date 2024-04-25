@@ -5,7 +5,7 @@ const router = express.Router({mergeParams: true});
 
 const {protect, authorize} = require('../middleware/auth');
 
-router.route('/').post(protect, authorize('admin', 'user'), addTransaction);
-router.route('/:id').get(protect, authorize('admin', 'user'), getTransaction);
+router.route('/').post(protect, authorize('admin', 'user', 'premium'), addTransaction);
+router.route('/:id').get(protect, authorize('admin', 'user', 'premium'), getTransaction);
 
 module.exports = router;
