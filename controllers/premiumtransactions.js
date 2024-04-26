@@ -58,3 +58,23 @@ exports.addPremiumTransaction = async (req, res, next) => {
         return res.status(500).json({success: false, message: 'Cannot create Premium Transaction'});
     }
 };
+
+//@desc     Delete reservation
+//@route    DELETE /api/premiumtransactions/:id
+//@access   Private
+exports.deletePremiumTransaction = async (req, res, next) => {
+    try {
+        const premiumTransaction = await PremiumTransaction.findById(req.params.id);
+
+        if (!premiumTransaction) {
+            return res.status(404).json({success: false, message: `No Premium Transaction with the id of ${req.params.id}`});
+        }
+
+        await premiumTransaction.deleteOne();
+
+        res.status(200).json({success: true, data: {}});
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({success: false, message: 'Cannot delete Premium Transaction'});
+    }
+};
