@@ -26,10 +26,11 @@ const PremiumTransactionSchema = new mongoose.Schema({
     slip: {
         type: String,
         required: true
-    },status: {
+    },
+    status: {
         type: String,
-        enum: ['waiting', 'pending', 'success', 'failed'],
-        default: 'waiting'
+        enum: ['pending', 'success', 'failed'],
+        default: 'pending'
     },
     createAt: {
         type: Date,

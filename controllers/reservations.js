@@ -80,11 +80,16 @@ exports.addReservation = async (req, res, next) => {
         req.body.user = req.user.id;
 
         // Check for existed reservation
-        const existedReservations = await Reservation.find({user: req.user.id});
+        const existedReservations = await Reservation.find({user: req.user.id, "reserveStartTime" : {"$gte" : new Date(new Date().getTime() + 7*60*60*1000)}});
 
-        // If the user is not an admin, they can only create 3 reservations
-        if (existedReservations.length >= 3 && req.user.role !== 'admin') {
-            return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 reservations`});
+        // If role is user, they can only create 3 reservations
+        if (existedReservations.length >= 3 && req.user.role === 'user') {
+            return res.status(400).json({success: false, message: `The user has already made 3 reservations`});
+        }
+
+        // If role is premium, they can only create 5 reservations
+        if (existedReservations.length >= 5 && req.user.role === 'premium') {
+            return res.status(400).json({success: false, message: `The user has already made 5 reservations`});
         }
 
         // Check validation of reservation's time
@@ -94,6 +99,11 @@ exports.addReservation = async (req, res, next) => {
         let reserveEndDate = reserveEndTime.toISOString().slice(0, 10);
         let coworkingOpenTime = new Date(reserveStartDate + 'T' + coworkingspace.opentime + ':00.000Z');
         let coworkingCloseTime = new Date(reserveEndDate + 'T' + coworkingspace.closetime + ':00.000Z');
+
+            // Check if the reservation start time is after the current time
+            if (new Date(req.body.reserveStartTime) < new Date(new Date().getTime() + 7*60*60*1000)) {
+                return res.status(405).json({success: false, message: 'The reservation cannot be made for past times'});
+            }
 
             // Check if it's the same date
             if (reserveStartDate !== reserveEndDate) {
