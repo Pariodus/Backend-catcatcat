@@ -10,8 +10,8 @@ const hpp = require('hpp');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-//const swaggerJsDoc = require('swagger-jsdoc');
-//const swaggerUi = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
 
 const coworkingspaces = require('./routes/coworkingspaces');
 const auth = require('./routes/auth');
@@ -65,6 +65,26 @@ app.use('/api/reservations', reservations);
 app.use('/api/users', users);
 app.use('/api/transactions', transactions);
 app.use('/api/premiumtransactions', premiumtransactions);
+
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Library API',
+            version: '1.0.0',
+            description: 'A CATCATCAT Co-working Space Reservations API'
+        },
+        servers: [
+            {
+                url: 'http://localhost:5000/api/'
+            }
+        ],
+    },
+    apis: ['./routes/*.js'],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 //Cookie parser
 app.use(cookieParser());
