@@ -29,7 +29,7 @@ exports.getPremiumTransactions = async (req, res, next) => {
 //@access   Private
 exports.getPremiumTransaction = async (req, res, next) => {
     try {
-        const premiumTansaction = await PremiumTransaction.findOne({user: req.params.id})
+        const premiumTansaction = await PremiumTransaction.findById({user: req.params.id})
 
         if (!premiumTansaction) {
             return res.status(404).json({success: false, message: `No Premium Transaction with the user id of ${req.params.id}`});

@@ -1,5 +1,4 @@
 const Transaction = require('../models/Transaction');
-const Reservation = require('../models/Reservation')
 
 //@desc     Get single transaction
 //@route    GET /api/transactions/:id
