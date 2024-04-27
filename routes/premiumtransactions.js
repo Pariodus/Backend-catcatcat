@@ -68,3 +68,67 @@ module.exports = router;
 *               status: pending
 *               createAt: 2024-04-27T12:00:00Z
 */
+
+/**
+* @swagger
+* /premiumtransactions:
+*   get:
+*     summary: Returns the list of all Premium Transactions
+*     tags: [Premiumtransactions]
+*     responses:
+*       200:
+*         description: The list of the Premium Transactions
+*         content:
+*           application/json:
+*             schema:
+*             type: array
+*             items:
+*               $ref: '#/components/schemas/PremiumTransaction'
+*/
+
+/**
+* @swagger
+* /premiumtransactions/{id}:
+*   get:
+*     summary: Get the Premium Transaction by id
+*     tags: [Premiumtransactions]
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: The premiumtransaction id
+*     responses:
+*       200:
+*         description: The Premium Transaction description by id
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/PremiumTransaction'
+*       404:
+*         description: No Premium Transaction with the reservation id
+*/
+
+/**
+* @swagger
+* /premiumtransactions:
+*   post:
+*     summary: Create a new premiumtransaction
+*     tags: [Premiumtransactions]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/PremiumTransaction'
+*     responses:
+*       201:
+*         description: The premiumtransaction was successfully created
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/PremiumTransaction'
+*       500:
+*         description: Cannot create Premium Transaction
+*/
