@@ -79,6 +79,20 @@ const swaggerOptions = {
                 url: 'https://coworking-backend-beta.vercel.app/api/'
             }
         ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT'
+                }
+            }
+        },
+        security: [
+            {
+                bearerAuth: []
+            }
+        ],
     },
     apis: ['./routes/*.js'],
 };
