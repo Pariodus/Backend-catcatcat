@@ -105,7 +105,7 @@ module.exports = router;
 *         schema:
 *           type: string
 *         required: true
-*         description: The premiumtransaction id
+*         description: The premium transaction id
 *     responses:
 *       200:
 *         description: The Premium Transaction description by id
@@ -121,7 +121,7 @@ module.exports = router;
 * @swagger
 * /premiumtransactions:
 *   post:
-*     summary: Create a new premiumtransaction
+*     summary: Create a new premium transaction
 *     tags: [Premium Transactions]
 *     requestBody:
 *       required: true
@@ -137,7 +137,7 @@ module.exports = router;
 *             schema:
 *               $ref: '#/components/schemas/PremiumTransaction'
 *       500:
-*         description: Cannot create Premium Transaction
+*         description: Cannot create premium transaction
 */
 
 /**
