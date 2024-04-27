@@ -43,7 +43,7 @@ exports.getPremiumTransaction = async (req, res, next) => {
 };
 
 //@desc     Add premium transaction
-//@route    POST /api/transactions/
+//@route    POST /api/premiumtransactions/
 //@access   Private
 exports.addPremiumTransaction = async (req, res, next) => {
     try {
@@ -56,6 +56,30 @@ exports.addPremiumTransaction = async (req, res, next) => {
     } catch (error) {
         console.log(error.stack);
         return res.status(500).json({success: false, message: 'Cannot create Premium Transaction'});
+    }
+};
+
+//@desc     Update a premium transaction
+//@route    PUT /api/premiumtransactions/:id
+//@access   Private
+exports.updatePremiumTransaction = async (req,res,next) => {
+    try {
+        let premiumTransaction = await PremiumTransaction.findById(req.params.id);
+
+        if (!premiumTransaction) {
+            return res.status(404).json({success: false, message: `No premium transaction intment with the id of ${req.params.id}`});
+        }
+
+        premiumTransaction = await PremiumTransaction.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
+
+        res.status(200).json({success:true, data: premiumTransaction});
+    }
+    catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({success: false, message: 'Cannot update Premium Transaction'});
     }
 };
 
