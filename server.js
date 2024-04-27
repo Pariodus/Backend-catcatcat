@@ -76,7 +76,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://coworking-backend-beta.vercel.app/api/'
+                url: 'http://localhost:5000/api/'
             }
         ],
         components: {

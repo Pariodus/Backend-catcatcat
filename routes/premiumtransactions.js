@@ -80,17 +80,17 @@ module.exports = router;
 * @swagger
 * /premiumtransactions:
 *   get:
-*     summary: Returns the list of all Premium Transactions
+*     summary: Returns the list of all premium transactions
 *     tags: [Premium Transactions]
 *     responses:
 *       200:
-*         description: The list of the Premium Transactions
+*         description: The list of the premium transactions
 *         content:
 *           application/json:
 *             schema:
-*             type: array
-*             items:
-*               $ref: '#/components/schemas/PremiumTransaction'
+*               type: array
+*               items:
+*                 $ref: '#/components/schemas/PremiumTransaction'
 */
 
 /**

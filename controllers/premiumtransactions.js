@@ -6,8 +6,10 @@ const PremiumTransaction = require('../models/PremiumTransaction');
 exports.getPremiumTransactions = async (req, res, next) => {
     let query;
 
-    if (req.user.role == 'admin') {
-        query = PremiumTransaction.find();
+    if (req.user.role !== 'admin') {
+        query = PremiumTransaction.find({user: req.user.id}, '_id user membership cost status');
+    } else {
+        query = PremiumTransaction.find({}, '_id user membership cost status');
     }
 
     try {
