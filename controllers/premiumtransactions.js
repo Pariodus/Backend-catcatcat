@@ -31,7 +31,10 @@ exports.getPremiumTransactions = async (req, res, next) => {
 //@access   Private
 exports.getPremiumTransaction = async (req, res, next) => {
     try {
-        const premiumTansaction = await PremiumTransaction.findById(req.params.id)
+        const premiumTansaction = await PremiumTransaction.findById(req.params.id).populate({
+            path: 'user',
+            select: 'name role expire'
+        })
 
         if (!premiumTansaction) {
             return res.status(404).json({success: false, message: `No Premium Transaction with the user id of ${req.params.id}`});

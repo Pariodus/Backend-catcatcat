@@ -19,6 +19,7 @@ const reservations = require('./routes/reservations');
 const users = require('./routes/users');
 const transactions = require('./routes/transactions');
 const premiumtransactions = require('./routes/premiumtransactions');
+const cron = require('./routes/cron');
 
 // Load env vars
 dotenv.config({path: './config/config.env'});
@@ -49,7 +50,7 @@ app.use(xss());
 //Rate limiting
 const limiter = rateLimit({
     windowMs: 10 * 60 * 1000, //10 mins
-    max: 500
+    max: 1000
 });
 app.use(limiter);
 
@@ -65,6 +66,7 @@ app.use('/api/reservations', reservations);
 app.use('/api/users', users);
 app.use('/api/transactions', transactions);
 app.use('/api/premiumtransactions', premiumtransactions);
+app.use('/cron', cron);
 
 const swaggerOptions = {
     swaggerDefinition: {
