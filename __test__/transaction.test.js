@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction');
 
-describe('mongodb test', () => {
+describe('create transaction', () => {
     const MONGO_URI = `mongodb+srv://Kuzuryuz:1234@coworkingspace.nr0wkau.mongodb.net/?retryWrites=true&w=majority&appName=CoworkingSpace`
 
     beforeAll(async () => {
